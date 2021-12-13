@@ -28,6 +28,7 @@ class TransactionController extends Controller
         return Product::find($id);
     }
 
+    // Creating trasaction.
     public function create(Request $request){
         $index = 0;
         $products_purchased = array();
@@ -35,6 +36,8 @@ class TransactionController extends Controller
         $quantities = array();
         $delivered_quantity = array();
         $deposited_quantity = array();
+        $deposited_amount = 0;
+        $is_deposited = false;
 
         $request->validate([
             'investor' => 'required',
@@ -42,8 +45,11 @@ class TransactionController extends Controller
             'price' => 'required',
             'quantity' => 'required',
             'total' => 'required',
+            'payment_type' => 'required',
+            'transaction_id' => 'required'
         ]);
 
+        
         $products = Product::whereIn('id', $request->product)->get();
         $investor = Invester::find($request->investor);
 
@@ -66,6 +72,10 @@ class TransactionController extends Controller
             array_push($deposited_quantity, $request->quantity[$i]/2);
         }
 
+        $deposited_amount = ($request->total/2);
+        if($deposited_amount != 0 || $deposited_amount != 0.0){
+            $is_deposited = true;
+        }
 
         $transaction_created = Transaction::create([
             'investor' => $request->investor,
@@ -78,7 +88,9 @@ class TransactionController extends Controller
             'accountant_id' => $request->session()->get('user')->id,
             'delivered' => json_encode($delivered_quantity),
             'deposited' => json_encode($deposited_quantity),
-            'deposited_amount' => ($request->total/2)
+            'deposited_amount' => $deposited_amount,
+            'is_deposited' => $is_deposited,
+            'transaction_id' => $request->transaction_id
         ]);
 
         if($transaction_created != null){
@@ -88,5 +100,24 @@ class TransactionController extends Controller
 
             return back()->with("transaction_success", "Transaction Added.");
         }
+    }
+
+    // Get all unseen transactions
+    public function getUnseenTransactions(){
+        return Transaction::leftJoin("investers", "transactions.investor", 'investers.id')
+        ->select(
+            'transactions.*',
+            'investers.username as investor_name'
+        )
+        ->where('transactions.seen', false)
+        ->get();
+    }
+
+    // Update unseen transaction to TURE.
+    public function seen($id){
+        $transaction = Transaction::find($id);
+        $transaction->seen = true;
+        $transaction->update();
+        return back();
     }
 }

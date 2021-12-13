@@ -26,6 +26,9 @@ class CreateTransactionsTable extends Migration
             $table->json('delivered')->nullable();
             $table->json('deposited')->nullable();
             $table->double('deposited_amount')->nullable();
+            $table->boolean('is_deposited')->default(false);
+            $table->boolean('seen')->default(false);
+            $table->string('transaction_id');
             $table->timestamps();
         });
     }

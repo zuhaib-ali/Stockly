@@ -83,9 +83,9 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function(){
     Route::get('/get-categories-by-company-id-in-product/{id}', [ProductController::class, 'getCategoriesByCompanyId']);
     Route::get('/get-categories-by-company-id-in-edit-product-modal/{id}', [ProductController::class, 'getCategoriesByCompanyIdInEditProductModal']);
 
-
     // Settings
     Route::post('/update-fillers', [SettingController::class, 'update'])->name('update-fillers');
+
     
 });
 
@@ -105,8 +105,11 @@ Route::group(['prefix'=>'accountant', "middleware" => "accountantAuth"], functio
     Route::get('/get-products-in-add-transaction', [TransactionController::class, 'getProducts'])->name('accountant.get-products-in-add-transaction');
     Route::get('/get-product-by-id-in-add-transaction/{id}', [TransactionController::class, 'getProductById']);
     Route::post('/create-transaction', [TransactionController::class, 'create'])->name('accountant.create-transaction');
-    
 });
+
+Route::get('/get-unseen-transactions', [TransactionController::class, 'getUnseenTransactions'])->name('getUnseenTransactions');
+Route::get('/seen/{id}', [TransactionController::class, 'seen']);
+
 
 
 // Login

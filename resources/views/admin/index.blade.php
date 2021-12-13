@@ -3,22 +3,14 @@
 <!-- navbar and sidebar -->
 @include('layouts.template')
     <br>
-    <div>
+    <div class='d-flex justify-content-end'>
         <form action="{{ route('update-fillers') }}" method="POST" class="form">
             @csrf
-            <div class="d-flex justify-content-end ">
-                <div class="form-group me-3" style='width:100px;'>
-                    <label for="">Filler</label>
-                    <input type="text" name="filler" value="@if($settings->count() != null){{ $settings->find(1)->filler }}@endif" class='form-control' placeholder="%Filler">
-                </div>
-                <div class="form-group"style='width:100px;'>
-                    <label for="">Non-filler</label>
-                    <input type="text" name="non_filler" value="@if($settings->count() != null){{ $settings->find(1)->non_filler }}@endif" id="non_filler" class='form-control' placeholder="%Non-filler">
-                </div>
+            <div class="d-flex">
+                <input type="text" name="filler" value="@if($settings->count() != null){{ $settings->find(1)->filler }}@endif" class='form-control' placeholder="%Filler" style="width:200px; margin-right:10px;">
+                <input type="text" name="non_filler" value="@if($settings->count() != null){{ $settings->find(1)->non_filler }}@endif" id="non_filler" class='form-control' placeholder="%Non-filler"  style="width:200px;">        
             </div>
-            <div class="form-group d-flex justify-content-end">
-                <input type="submit" value="Update" class='btn btn-sm btn-info'>
-            </div>
+            <input type="submit" value="Update" class='btn btn-info'>
         </form>
     </div>
 
@@ -26,7 +18,7 @@
 
     <div class="container index-container">
         <!-- Accountants -->
-        <div class="card bg-info">
+        <div class="card index-card bg-info">
             <div class="card-body">
                 <h3>Accountants</h3>
                 <p>{{ $accountants->count() }}</p>
@@ -35,7 +27,7 @@
         </div>
 
         <!-- Companies -->
-        <div class="card bg-info">
+        <div class="card index-card bg-info">
             <div class="card-body">
                 <h3>Companies</h3>
                 <p>{{ $companies->count() }}</p>
@@ -43,7 +35,7 @@
             </div>
         </div>
 
-        <div class="card bg-danger">
+        <div class="card index-card bg-danger">
             <div class="card-body">
                 <h3>Categories</h3>
                 <p>{{ $categories->count() }}</p>
@@ -52,7 +44,7 @@
         </div>
 
         <!-- Products -->
-        <div class="card bg-primary">
+        <div class="card index-card bg-primary">
             <div class="card-body">
                 <h3>Products</h3>
                 <p>{{ $products->count() }}</p>

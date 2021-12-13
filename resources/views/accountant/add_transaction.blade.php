@@ -41,17 +41,38 @@
 
                     
                     <div id='trasaction-footer' hidden>
+                        <div class="d-flex justify-content-between">
+                            <div class="form-check">
 
-                        <!-- Payment -->
-                        <div class="form-group  d-flex justify-content-around">
-                            <div>Cash <input type="radio" name="payment_type" value="cash" checked></div>
+                                <div class="d-flex justify-content-between" style="width:300px;">
+                                    <!-- JazzCash -->
+                                    <div class="form-check">
+                                        <input class="form-check-input payment_type" type="radio" name="payment_type" value="jazz_cash">
+                                        <label class="form-check-label" for="flexRadioDefault1">JazzCash</label>
+                                    </div>
+
+                                    <!-- Meezan Bank -->
+                                    <div class="form-check">
+                                        <input class="form-check-input payment_type" type="radio" name="payment_type" value="meezan_bank">
+                                        <label class="form-check-label" for="flexRadioDefault1">Meezan Bank</label>
+                                    </div>
+                                </div>
+
+                                <!-- Transaction ID -->
+                                <div class="form-group">
+                                    <input type="text" placeholder="Transaction ID" class="form-control" id="transaction_id" name="transaction_id" aria-describedby="basic-addon1" style="width:300px;" hidden required>
+                                </div>
+                            </div>
+
+                            <!-- Total price -->
+                            <div class="form-group">
+                                <label for="">Total</label>
+                                <input type="text" class="form-control" name="total" value="0" id="total_products_price" aria-describedby="basic-addon1" style="width:300px;" readonly>
+                            </div>
+
                         </div>
-
-                        <!-- Total price -->
-                        <div class="form-group  d-flex justify-content-center">
-                            <input type="text" class="form-control" name="total" id="total_products_price" placeholder="PKR: Total quantity" aria-describedby="basic-addon1" style="width:300px;" readonly>
-                        </div>
-
+                        <br>
+                        <br>
                         <!-- Create trasanction button -->
                         <div class="form-group d-flex justify-content-center">
                             <input type="submit" value="Add Transaction" class='btn btn-success'>

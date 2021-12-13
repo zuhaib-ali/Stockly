@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css">
     <!-- Custom css -->
     <link rel="stylesheet" href="{{ asset('css/style1.css') }}">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
 
     <title>Document</title>
 

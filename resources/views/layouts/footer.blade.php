@@ -1,13 +1,52 @@
 
 
+    <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Fontawesome -->
+    <script src="{{ asset('fontawesome/js/all.min.js') }}"></script>
+    <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <!-- Toastr -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function(event) {
+        // Get unseen transactions
+        $(document).ready(function(){
+            let unseen_investors_name = '';
+            $.ajax({
+                url: "{{ route('getUnseenTransactions') }}",
+                type: "GET",
+                success:function(data){
+                    $('#total-unseen-transactions').text(data.length);
+                    if(data.length != 0){
+                        data.forEach(function(d){
+                            unseen_investors_name += '<a href={{ url("/seen") }}/'+d.investor+'><li>'+d.investor_name+' ('+d.total+')'+'</li></a>';
+                        });
+                    }else{
+                        unseen_investors_name += '<li style="font-styel:italic;">No any new transaction found.</li>';
+                    }
 
+                    $('#unseen-transactions-list').html(unseen_investors_name);
+                }
+            });
+        });
+
+        // On hover show unseen transactions
+        $('#total-unseen-transactions').hover(function(){
+            $('#unseen-transactions-list').prop('hidden', false);
+        });
+
+        $('#unseen-transactions-list').hover(function(){
+            $(this).prop('hidden', false);
+        }, function(){
+            $(this).prop('hidden', true);
+        });
+
+
+
+        document.addEventListener("DOMContentLoaded", function(event) {
         const showNavbar = (toggleId, navId, bodyId, headerId) =>{
         const toggle = document.getElementById(toggleId),
         nav = document.getElementById(navId),
@@ -402,6 +441,13 @@ $('.investors-select2').select2();
             $(this).closest('tr').remove();
             if($('tr').length-1 == 0){
                 $('#trasaction-footer').prop('hidden', true);
+            }
+        });
+
+        $(document).on('click', '.payment_type', function(){
+            console.log($('#transaction_id').prop('hidden', false));
+            if($(this).prop('checked')){
+                $('#transaction_id').prop('hidden', false);
             }
         });
     </script>

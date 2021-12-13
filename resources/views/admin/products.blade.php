@@ -93,6 +93,7 @@
               <th>Image</th>
               <th>Name</th>
               <th>Price</th>
+              <th>Stock</th>
               <th style="width:180px;">Action</th>
             </tr>
           </thead>
@@ -106,12 +107,13 @@
                     @if($proudct_images->find($product->id) != null)
                       <img src="{{ asset('product_images') }}/{{ $proudct_images->find($product->id)->image_name }}" alt="" class="product_image">
                     @else
-                      <img src="" alt="{{ $product->name }}" class="product_image">
+                      <img src="https://th.bing.com/th/id/OIP.AwJzA--cIbMfXb3IsB9MvgHaHt?w=172&h=180&c=7&r=0&o=5&pid=1.7" alt="{{ $product->name }}" class="product_image">
                     @endif
 
                   </td>
                   <td>{{ $product->name }}</td>
                   <td>{{ $product->price }}</td>
+                  <td>{{ $product->stock }}</td>
                   <td>
                     <a class="btn btn-sm btn-primary"><i>View</i></a>
                     <a class="btn btn-sm btn-success edit_product_modal_trigger" data="{{ $product->id }}"><i>Edit</i></a>
