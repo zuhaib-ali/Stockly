@@ -13,7 +13,7 @@
     <div class="container">
         <div class="title-heading">
             <h4>investors</h4>    
-            <a href="{{ route('add-investor-view') }}" class='btn btn-primary'>Add investor</a>
+            <a href="{{ route('accountant.add-investor-view') }}" class='btn btn-primary'>Add investor</a>
         </div>
         <hr>
         <table class="table">
@@ -38,9 +38,8 @@
                   <td>{{ $investor->level }}</td>
                   <td>{{ $investor->points }}</td>
                   <td>
-                    <a class="btn btn-sm btn-primary"><i>View</i></a>
-                    <a class="btn btn-sm btn-success edit_product_modal_trigger" data="{{ $investor->id }}"><i>Edit</i></a>
-                    <a class="btn btn-sm btn-danger delete_product_modal_trigger" data="{{ $investor->id }}"><i>Delete</i></a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('accountant.view_investor', ['id' => $investor->id]) }}">View</a>
+                    <a class="btn btn-sm btn-danger delete_investor_modal_trigger" data="{{ $investor->id }}">Delete</a>
                   </td>
                 </tr>
               @endforeach
@@ -54,83 +53,15 @@
         </table>
     </div>
 
-{{--
-      <!-- Edit product modal -->
-      <div class="modal" tabindex="-1" id="edit_product_modal">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <form action="{{ route('admin.update-product') }}" method="POST" class="form">
-              @csrf
-
-              <div class="modal-header">
-                <h5 class="modal-title" id="edit-proudct-modal">Modal title</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-
-              <div class="modal-body">
-                <!-- Name -->
-                <div class="form-group">
-                  <label for="">Name</label>
-                  <input type="text" name="name" value="" id="edit_product_name" class="form-control" required>
-                </div>
-
-                <!-- Price -->
-                <div class="form-group">
-                  <label for="">Price</label>
-                  <input type="price" value="" name="price" id="edit_product_price" class="form-control" required>
-                </div>
-
-                <!-- Description -->
-                <div class="form-group">
-                  <label for="">Description</label>
-                  <textarea name="description" id="edit_product_description" cols="30" rows="3" class="form-control"></textarea>
-                </div>
-
-                <!-- Company -->
-                <div class="form-group">
-                  <label for="">Company</label>
-                  <select name="company" id="edit_product_company" class="form-control" required></select>
-                </div>
-
-                <!-- Category -->
-                <div class="form-group">
-                  <label for="">Cateogry</label>
-                  <select name="category" id="edit_proudct_category" class="form-control" required></select>
-                </div>
-
-                <!-- Tax -->
-                <div class="form-group">
-                  <label for="">Tax</label>
-                  <input type="text" name="tax" id="edit_product_tax" class="form-control">
-                </div>
-
-                <!-- Stock -->
-                <div class="form-group">
-                  <input type="number" name="stock" id="edit_product_stock" placeholder="Stock" class="form-control">
-                </div>
-
-                <!-- product_id -->
-                <input type="hidden" id="edit_id_product" name="id">
-              </div>
-
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Update</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-
-    <!-- Delete product modal -->
-    <div class="modal fade" id="confirm_delete_product_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- Delete investor modal -->
+    <div class="modal fade" id="delete_investor_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <form action="{{ route('admin.delete-product') }}" method="POST" class="form">
+          <form action="{{ route('delete-investor') }}" method="POST" class="form">
             @csrf
             <div class="modal-body">
-              <p id="confirm_delete_product_message"></p>
-              <input type="hidden" name="id" id="product_id_in_delete_modal" value="">
+              <p id="delete_investor_title"></p>
+              <input type="hidden" name="id" id="delete_investor_id" value="">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -140,5 +71,4 @@
         </div>
       </div>
     </div> 
-    --}}
 @include('layouts.footer')

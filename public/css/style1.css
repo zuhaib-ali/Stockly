@@ -237,9 +237,25 @@ a {
         padding-left: calc(var(--nav-width) + 188px)
     }
 
+    .data_list dd{
+        border-bottom:1px solid lightgrey;
+    }
+
+    .unseen{
+        background-color: lightblue;
+    }
+
     .title-heading{
         display:flex;
         justify-content:space-between;
+    }
+
+    .profile_image{
+        width: 100px;
+        height:100px;
+        border:1px solid white;
+        padding:1px;
+        border-radius:50%;
     }
 
     .form-control{
@@ -270,18 +286,19 @@ a {
 
     #unseen-transactions-list{
         position:absolute; 
-        top:30px;
-        right:0px; 
+        top:20px;
+        right:10px; 
         list-style:none; 
-        width:250px; 
-        padding:2px;
-        box-shadow: 0px 0px 5px lightgrey;
+        width:200px; 
+        padding:1px;
+        box-shadow: 0px 0px 3px lightgrey;
+        border:1px solid lightgrey;
         border-radius:5px;
     }
 
     #unseen-transactions-list li{
-        text-align: center;
-        padding:3px;
+        font-size:18px;
+        padding:10px 10px;
         text-transform: uppercase;
         font-size:12px;
         border-bottom: 1px solid lightgrey;

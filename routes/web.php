@@ -65,6 +65,14 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function(){
     Route::get('/get-category-by-id/{id}', [CategoryController::class, 'getCategoryById']);
     Route::post('/cateogry/delete', [CategoryController::class, 'delete'])->name('admin.delete-category');
 
+    // Investors
+    Route::get('/investors', [InvesterController::class, 'investors'])->name('admin.investors');
+    Route::get('/add_investor_view', [InvesterController::class, 'addInvestor'])->name('admin.add-investor-view');
+    Route::post('/submit/investor', [InvesterController::class, 'create'])->name('admin.submit-investor');
+    Route::get('/investor/view', [InvesterController::class, 'view'])->name('admin.view_investor');
+    Route::get('/investor/edit', [InvesterController::class, 'edit'])->name('admin.edit-investor');
+    Route::post('/investor/update', [InvesterController::class, 'update'])->name('admin.update-investor');
+
     // Sub Category
     Route::get('/sub-categories', [SubCategoryController::class, 'index'])->name('admin.sub_categories');
     Route::post('/sub-category/add', [SubCategoryController::class, "add"])->name('admin.add-sub-category');
@@ -86,6 +94,9 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function(){
     // Settings
     Route::post('/update-fillers', [SettingController::class, 'update'])->name('update-fillers');
 
+    // Transactions
+    Route::get('/transactions', [TransactionController::class, 'show'])->name('admin.transactions');
+
     
 });
 
@@ -97,8 +108,10 @@ Route::group(['prefix'=>'accountant', "middleware" => "accountantAuth"], functio
 
     // investors
     Route::get('/investors', [InvesterController::class, 'investors'])->name('accountant.investors');
-    Route::get('/add_investor_view', [InvesterController::class, 'addInvestor'])->name('add-investor-view');
-    Route::post('/submit/investor', [InvesterController::class, 'create'])->name('submit-investor');
+    Route::get('/add_investor_view', [InvesterController::class, 'addInvestor'])->name('accountant.add-investor-view');
+    Route::post('/submit/investor', [InvesterController::class, 'create'])->name('accountant.submit-investor');
+    Route::get('/investor/view', [InvesterController::class, 'view'])->name('accountant.view_investor');
+    
 
     // Transaction
     Route::get('/transaction', [TransactionController::class, 'addTransactionView'])->name('accountant.transaction');
@@ -107,9 +120,13 @@ Route::group(['prefix'=>'accountant', "middleware" => "accountantAuth"], functio
     Route::post('/create-transaction', [TransactionController::class, 'create'])->name('accountant.create-transaction');
 });
 
+// Unseen Transactions notifications.
 Route::get('/get-unseen-transactions', [TransactionController::class, 'getUnseenTransactions'])->name('getUnseenTransactions');
 Route::get('/seen/{id}', [TransactionController::class, 'seen']);
 
+// Invester - GET, DLETE.
+Route::get('/investor/get-investor-by-id/{id}', [InvesterController::class, 'getInvestorById']);
+Route::post('/investor/delete', [InvesterController::class, 'delete'])->name('delete-investor');
 
 
 // Login

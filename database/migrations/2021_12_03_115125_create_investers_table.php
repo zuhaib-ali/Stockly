@@ -32,8 +32,9 @@ class CreateInvestersTable extends Migration
             $table->string('referral_code')->unique()->nullable();
             $table->boolean('terms_conditions');
             $table->boolean('accountant_id');
-            $table->unsignedInteger('level')->default(1);
-            $table->double('points')->default(0.0);
+            $table->unsignedInteger('level')->nullable();
+            $table->string('level_name')->nullable();
+            $table->double('points')->nullable();
             $table->timestamps();
         });
     }

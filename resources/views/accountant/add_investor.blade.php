@@ -20,7 +20,7 @@
             <!-- card body -->
             <div class="card-body">
                 <!-- Form -->
-                <form action="{{ route('submit-investor') }}" method="POST" class="form" enctype='multipart/form-data'>
+                <form action="{{ route('accountant.submit-investor') }}" method="POST" class="form" enctype='multipart/form-data'>
                     @csrf 
                     
                     <div class="form-row d-flex flex-wrap justify-content-between">
@@ -42,26 +42,26 @@
                                             </div>
                                             
                                             <div class="form-group">
-                                                <input type="text" name='phone' placeholder='Phone' class='form-control' required>
+                                                <input type="text" name='phone' placeholder='Phone' class='form-control' >
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="text" name='email' placeholder='E-Mail' class='form-control' required>
+                                                <input type="text" name='email' placeholder='E-Mail' class='form-control' >
                                             </div>                            
 
                                             <div class="form-group">
-                                                <input type="text" name='cnic' placeholder='CNIC' class='form-control' required>
+                                                <input type="text" name='cnic' placeholder='CNIC' class='form-control' >
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="password" name='password' placeholder='Password' class='form-control' required>
+                                                <input type="password" name='password' placeholder='Password' class='form-control' >
                                             </div>
 
                                         </div>
 
                                         <!-- Address -->
                                         <div class="form-group">
-                                            <textarea name='address' cols="30" rows="3" placeholder="Address..." class='form-control'  required></textarea>
+                                            <textarea name='address' cols="30" rows="3" placeholder="Address..." class='form-control'  ></textarea>
                                         </div>
                                     </fieldset>                        
                                 </div>
@@ -72,11 +72,11 @@
                                         <legend>Nominee</legend>
                                         <div class="form-row">
                                             <div class="form-group">
-                                                <input type="text" name='nominee_name' placeholder='Nominee Name' class='form-control'  required>
+                                                <input type="text" name='nominee_name' placeholder='Nominee Name' class='form-control'  >
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="text" name='nominee_cnic' placeholder='Nominee CNIC' class='form-control' required>
+                                                <input type="text" name='nominee_cnic' placeholder='Nominee CNIC' class='form-control' >
                                             </div>
                                         </div>
 

@@ -49,7 +49,6 @@ class TransactionController extends Controller
             'transaction_id' => 'required'
         ]);
 
-        
         $products = Product::whereIn('id', $request->product)->get();
         $investor = Invester::find($request->investor);
 
@@ -96,6 +95,94 @@ class TransactionController extends Controller
         if($transaction_created != null){
             // Updating point in investors by 10 percent
             $investor->points = ($request->total/10)+$investor->points;
+
+            if($investor->points <= 65){
+                $investor->level = 1;
+                $investor->level_name = 'sales officer';
+
+            }elseif($investor->points > 65 && $investor->points <= 650){
+                $investor->level = 2;
+                $investor->level_name = 'asst. sales manager';
+    
+            }elseif($investor->points > 650 && $investor->points <= 6500){
+                $investor->level = 3;
+                $investor->level_name = 'deputy sales manager';
+    
+            }elseif($investor->points > 6500 && $investor->points <= 65000){
+                $investor->level = 4;
+                $investor->level_name = 'sales manager';
+    
+            }elseif($investor->points > 65000 && $investor->points <= 650000){
+                $investor->level = 5;
+                $investor->level_name = 'executive sales manager';
+    
+            }elseif($investor->points > 650000 && $investor->points <= 6500000){
+                $investor->level = 6;
+                $investor->level_name = 'asst. general manager';
+    
+            }elseif($investor->points > 6500000 && $investor->points <= 65000000){
+                $investor->level = 7;
+                $investor->level_name = 'deputy general manager';
+    
+            }elseif($investor->points > 65000000){
+                $investor->level = 8;
+                $investor->level_name = 'general manager';
+            }
+
+
+            // If investor has referral code.
+            if($investor->referral_code != null){
+                // Current investor referral code.
+                $referral = $investor->referral_code;
+
+                // While current invetor referral id not null.
+                while($referral != null){
+                    // Getting investor by referral code/id.
+                    $investors = Invester::find($referral);
+
+                    // Adding points.
+                    $investors->points = ($request->total/10)+$investors->points;
+
+                    if($investors->points <= 65){
+                        $investors->level = 1;
+                        $investors->level_name = 'sales officer';
+        
+                    }elseif($investors->points > 65 && $investor->points <= 650){
+                        $investors->level = 2;
+                        $investors->level_name = 'asst. sales manager';
+            
+                    }elseif($investors->points > 650 && $investor->points <= 6500){
+                        $investors->level = 3;
+                        $investors->level_name = 'deputy sales manager';
+            
+                    }elseif($investors->points > 6500 && $investor->points <= 65000){
+                        $investors->level = 4;
+                        $investors->level_name = 'sales manager';
+            
+                    }elseif($investors->points > 65000 && $investor->points <= 650000){
+                        $investors->level = 5;
+                        $investors->level_name = 'executive sales manager';
+            
+                    }elseif($investors->points > 650000 && $investor->points <= 6500000){
+                        $investors->level = 6;
+                        $investors->level_name = 'asst. general manager';
+            
+                    }elseif($investors->points > 6500000 && $investor->points <= 65000000){
+                        $investors->level = 7;
+                        $investors->level_name = 'deputy general manager';
+            
+                    }elseif($investors->points > 65000000){
+                        $investors->level = 8;
+                        $investors->level_name = 'general manager';
+                    }
+                    // Update investor
+                    $investors->update();
+
+                    // Assign referral code of this investor.
+                    $referral = $investors->referral_code;
+                }
+                
+            }
             $investor->update();
 
             return back()->with("transaction_success", "Transaction Added.");
@@ -103,21 +190,64 @@ class TransactionController extends Controller
     }
 
     // Get all unseen transactions
-    public function getUnseenTransactions(){
-        return Transaction::leftJoin("investers", "transactions.investor", 'investers.id')
-        ->select(
-            'transactions.*',
-            'investers.username as investor_name'
-        )
-        ->where('transactions.seen', false)
-        ->get();
+    public function getUnseenTransactions(Request $request){
+        if($request->session()->has('user')){
+            return Transaction::leftJoin("investers", "transactions.investor", 'investers.id')
+            ->select(
+                'transactions.*',
+                'investers.username as investor_name'
+            )
+            ->where('transactions.seen', false)
+            ->get();
+        }
     }
 
     // Update unseen transaction to TURE.
-    public function seen($id){
-        $transaction = Transaction::find($id);
-        $transaction->seen = true;
-        $transaction->update();
-        return back();
+    public function seen(Request $request, $id){
+        if($request->session()->has('user')){
+            $product = null;
+            $transaction = Transaction::find($id);
+            $transaction->seen = true;
+            $transaction->update();
+
+            $t = Transaction::leftJoin('investers', 'transactions.investor', 'investers.id')
+                ->select(
+                    'transactions.investor',
+                    'transactions.product',
+                    'transactions.price',
+                    'transactions.quantity',
+                    'transactions.payment',
+                    'transactions.payment_type',
+                    'transactions.total',
+                    'transactions.deposited_amount',
+                    'transactions.is_deposited',
+                    'transactions.delivered',
+                    'transactions.deposited',
+                    'investers.*'
+                )
+                ->where('transactions.id', $id)
+                ->first();
+            
+            $product = Product::whereIn('id', json_decode($t->product))->get();
+            
+            return view('admin.showTransaction', [
+                'transaction' => $t,
+                'products' => $product,
+            ]);
+        }
+    }
+
+    public function show(){
+        return view('admin.transactions', [
+            'products' => Product::all(),
+            'transactions' => Transaction::leftJoin('investers', 'transactions.investor', 'investers.id')
+            ->select(
+                'transactions.*',
+                'investers.id as investor_id',
+                'investers.username as investor_name',
+                'investers.image',
+            )
+            ->get()
+        ]);
     }
 }

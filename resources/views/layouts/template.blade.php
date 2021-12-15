@@ -19,6 +19,8 @@
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div> <a href="#" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">BBBootstrap</span> </a>
+
+                <!-- For admin -->
                 @if(Session::get('user')->role == 'admin')
                     <div class="nav_list"> 
                         <!-- Dashboard -->
@@ -45,13 +47,26 @@
                             <span class="nav_name">Categories</span> 
                         </a>
 
+                        <!-- Investors -->
+                        <a href="{{ route('admin.investors') }}" class="nav_link @if(Route::currentRouteName() == 'admin.investors') active @endif"> 
+                            <i class='fas fa-boxes'></i>
+                            <span class="nav_name">Investors</span> 
+                        </a>
+
                         <!-- Products -->
                         <a href="{{ route('admin.products') }}" class="nav_link @if(Route::currentRouteName() == 'admin.products') active @endif"> 
                             <i class='bx bx-basket'></i>
                             <span class="nav_name">Products</span> 
                         </a> 
+
+                        <!-- Products -->
+                        <a href="{{ route('admin.transactions') }}" class="nav_link @if(Route::currentRouteName() == 'admin.transactions') active @endif"> 
+                            <i class='fas fa-credit-card'></i>
+                            <span class="nav_name">Transactions</span> 
+                        </a> 
                     </div>                
 
+                <!-- For Accountant -->
                 @elseif(Session::get('user')->role == 'accountant')
                     <!-- Dashboard -->
                     <a href="{{ route('accountant') }}" class="nav_link @if(Route::currentRouteName() == 'accountant') active @endif"> 

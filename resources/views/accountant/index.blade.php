@@ -15,7 +15,7 @@
 
         <!-- Add Transaction -->
         <div class="card bg-danger">
-            <a href="{{ route('accountant.investors') }}">
+            <a href="{{ route('accountant.transaction') }}">
                 <div class="card-body">
                     <h3>Add Transaction</h3>
                 </div>

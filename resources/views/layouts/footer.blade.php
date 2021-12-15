@@ -1,5 +1,4 @@
 
-
     <!-- Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Fontawesome -->
@@ -34,15 +33,19 @@
         });
 
         // On hover show unseen transactions
-        $('#total-unseen-transactions').hover(function(){
-            $('#unseen-transactions-list').prop('hidden', false);
+        $(document).on('click', '.notifications',function(){
+            if($('#unseen-transactions-list').prop('hidden')){
+                $('#unseen-transactions-list').prop('hidden', false);
+            }else{
+                $('#unseen-transactions-list').prop('hidden', true);
+            }
         });
 
-        $('#unseen-transactions-list').hover(function(){
-            $(this).prop('hidden', false);
-        }, function(){
-            $(this).prop('hidden', true);
-        });
+        // $('#unseen-transactions-list').hover(function(){
+        //     $(this).prop('hidden', false);
+        // }, function(){
+        //     $(this).prop('hidden', true);
+        // });
 
 
 
@@ -445,10 +448,23 @@ $('.investors-select2').select2();
         });
 
         $(document).on('click', '.payment_type', function(){
-            console.log($('#transaction_id').prop('hidden', false));
             if($(this).prop('checked')){
                 $('#transaction_id').prop('hidden', false);
             }
+        });
+
+
+        // Investors delete (ACCOUNTANT MODULE)
+        $(document).on('click', '.delete_investor_modal_trigger', function(){
+            $.ajax({
+                url: "{{ url('/investor/get-investor-by-id') }}"+"/"+$(this).attr('data'),
+                type: "GET",
+                success:function(data){
+                    $("#delete_investor_id").val(data.id);
+                    $("#delete_investor_title").text("Are you sure want to delete "+ data.username);
+                    $("#delete_investor_modal").modal("show");
+                }
+            });
         });
     </script>
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invester;
+use App\Models\Product;
+use App\Models\Transaction;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,14 +12,21 @@ use Illuminate\Support\Str;
 
 class InvesterController extends Controller
 {
-    // investors
+    // Show
     public function investors(Request $request){
-        return view('accountant.investors', [
-            'investors' => Invester::where('accountant_id', $request->session()->get('user')->id)->get()
-        ]);
+        if($request->session()->get('user')->role == "admin"){
+            return view('admin.investors', [
+                'investors' => Invester::all()
+            ]);
+        }elseif($request->session()->get('user')->role == "accountant"){
+            return view('accountant.investors', [
+                'investors' => Invester::where('accountant_id', $request->session()->get('user')->id)->get()
+            ]);
+        }
+        
     }
 
-    // Add investor view
+    // Add investor module
     public function addInvestor(){
         return view('accountant.add_investor', [
             'investors' => Invester::all()
@@ -25,7 +34,7 @@ class InvesterController extends Controller
     }
     
 
-    // create
+    // Create
     public function create(Request $request){
         $image_name = null;
         $front_cnic_name = null;
@@ -81,6 +90,62 @@ class InvesterController extends Controller
             $request->cnic_front->move(public_path('investors_images/'.$investor_created->id), $front_cnic_name);
             $request->cnic_back->move(public_path('investors_images/'.$investor_created->id), $back_cnic_name);
             return back()->with('investor_success', $investor_created->username.' Added.');
+        }
+    }
+
+    // View investor
+    public function view(Request $request){
+        $investor = Invester::find($request->id);
+        return view('view_investor', [
+            'investor' => $investor,
+            'referral' => Invester::find($investor->referral_code),
+            'transactions' => Transaction::where("investor", $investor->id)->get(),
+            'products' => Product::all(),
+        ]);
+    }
+
+    // Edit investor
+    public function edit(Request $request){
+        return view("admin.edit_investor", [
+            'investor' => Invester::find($request->id),
+            'investors' => Invester::all()
+        ]);
+    }
+
+    public function update(Request $request){
+
+        $investor = Invester::find($request->id);
+        $investor->first_name = $request->first_name;
+        $investor->last_name = $request->last_name;
+        $investor->username = $request->first_name." ".$request->last_name;
+        $investor->email = $request->email;
+        $investor->phone = $request->phone;
+        $investor->cnic = $request->cnic;
+        $investor->address = $request->address;
+        $investor->nominee_name = $request->nominee_name;
+        $investor->nominee_cnic = $request->nominee_cnic;
+        $investor->nominee_relationship = $request->nominee;
+        $investor->referral_code = $request->referral_code;
+        if($investor->update()){
+            return back()->with("investor_info", 'Investor '.$investor->username." updated.");
+        }
+    }
+
+    // Get investor by id.
+    public function getInvestorById(Request $request, $id){
+        if($request->session()->has('user')){
+            return Invester::find($id);
+        }
+    }
+
+    // Delete investor
+    public function delete(Request $request){
+        if($request->session()->has('user')){
+            $investor = Invester::find($request->id);
+            $investor_name = $investor->username;
+            if($investor->delete()){
+                return back()->with('investor_error', $investor_name." deleted.");
+            }
         }
     }
 }

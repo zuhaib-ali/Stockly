@@ -47,14 +47,14 @@
                                 <div class="d-flex justify-content-between" style="width:300px;">
                                     <!-- JazzCash -->
                                     <div class="form-check">
-                                        <input class="form-check-input payment_type" type="radio" name="payment_type" value="jazz_cash">
+                                        <input class="form-check-input payment_type" type="radio" name="payment_type" value="JazzCash">
                                         <label class="form-check-label" for="flexRadioDefault1">JazzCash</label>
                                     </div>
 
-                                    <!-- Meezan Bank -->
+                                    <!-- Askari Bank -->
                                     <div class="form-check">
-                                        <input class="form-check-input payment_type" type="radio" name="payment_type" value="meezan_bank">
-                                        <label class="form-check-label" for="flexRadioDefault1">Meezan Bank</label>
+                                        <input class="form-check-input payment_type" type="radio" name="payment_type" value="Askari Bank">
+                                        <label class="form-check-label" for="flexRadioDefault1">Askari Bank</label>
                                     </div>
                                 </div>
 
