@@ -13,12 +13,15 @@ use App\Http\Controllers\InvesterController;
 use App\Http\Controllers\TransactionController;
 
 
+use App\Models\Accountant;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Company;
 use App\Models\Product;
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Invester;
+use App\Models\Transaction;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +44,9 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function(){
             'companies' => Company::all(),
             'products' => Product::all(),
             'settings' => Setting::all(),
-            'accountants' => User::where('role', 'accountant')->get()
+            'accountants' => Accountant::all(),
+            'investors' => Invester::all(),
+            'transactions' => Transaction::all(),
         ]);
     })->name("admin");
 
@@ -96,6 +101,8 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function(){
 
     // Transactions
     Route::get('/transactions', [TransactionController::class, 'show'])->name('admin.transactions');
+    Route::get('/transaction/get-transaction-by-id/{id}', [TransactionController::class, 'getTransactionById']);
+    Route::post('/transaction/delete', [TransactionController::class, 'delete'])->name('admin.delete-transaction');
 
     
 });

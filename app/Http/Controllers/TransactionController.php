@@ -250,4 +250,15 @@ class TransactionController extends Controller
             ->get()
         ]);
     }
+
+    // Get transaction by id.
+    public function getTransactionById($id){
+        return Transaction::find($id);
+    }
+
+    // Delete transaction
+    public function delete(Request $request){
+        Transaction::find($request->id)->delete();
+        return back()->with("transaction_error", "Transaction Deleted");
+    }
 }

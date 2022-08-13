@@ -4,7 +4,7 @@
         <div style="display:flex; justify-content:space-between; width:100px">
             @if(Session::get('user')->role=='admin')
                 <!-- Notifications -->
-                <div class="notifications">
+                <div class="notifications mt-2">
                     <div style="position:relative;">
                         <i class="fas fa-bell" style="color:blue; font-size:20px;"></i>
                         <p id='total-unseen-transactions'></p>

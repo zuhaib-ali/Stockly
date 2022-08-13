@@ -38,9 +38,9 @@
                   <td>{{ $investor->level }}</td>
                   <td>{{ $investor->points }}</td>
                   <td>
-                    <a class="btn btn-sm btn-primary" href="{{ route('admin.view_investor', ['id' => $investor->id]) }}">View</a>
-                    <a class="btn btn-sm btn-success" href="{{ route('admin.edit-investor', ['id' => $investor->id]) }}">Edit</a>
-                    <a class="btn btn-sm btn-danger delete_investor_modal_trigger" data="{{ $investor->id }}">Delete</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('admin.view_investor', ['id' => $investor->id]) }}"><i class="fas fa-eye"></i></a>
+                    <a class="btn btn-sm btn-success me-3" href="{{ route('admin.edit-investor', ['id' => $investor->id]) }}"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-sm btn-danger delete_investor_modal_trigger" data="{{ $investor->id }}"><i class="fas fa-trash"></i></a>
                   </td>
                 </tr>
               @endforeach

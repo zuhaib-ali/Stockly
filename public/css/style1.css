@@ -2,6 +2,10 @@ body{
     background:ghostwhite;
 }
 
+.index-card a{
+    color:white;
+}
+
 .index-container{
     margin:20px;
     display:flex;

@@ -42,8 +42,8 @@
                     <td>{{ $transaction->total }}</td>
                     <td>{{ $transaction->created_at->format('d M, y') }}</td>
                     <td>
-                        <a class="btn btn-sm btn-primary" href="{{ url('/seen') }}/{{$transaction->id}}"><i class='fas fa-eye'></i></a>
-                        <a class="btn btn-sm btn-danger delete_product_modal_trigger" data="{{ $transaction->id }}"><i class='fas fa-trash'></i></a>
+                      <a class="btn btn-sm btn-primary" href="{{ url('/seen') }}/{{$transaction->id}}"><i class='fas fa-eye'></i></a>
+                      <a class="btn btn-sm btn-danger admin_transaction_delete_trigger" data="{{ $transaction->id }}"><i class='fas fa-trash'></i></a>
                     </td>
                 </tr>
               @endforeach
@@ -123,17 +123,17 @@
           </div>
         </div>
       </div>
-
+      --}}
 
     <!-- Delete product modal -->
-    <div class="modal fade" id="confirm_delete_product_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="admin_delete_transaction_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
-          <form action="{{ route('admin.delete-product') }}" method="POST" class="form">
+          <form action="{{ route('admin.delete-transaction') }}" method="POST" class="form">
             @csrf
             <div class="modal-body">
-              <p id="confirm_delete_product_message"></p>
-              <input type="hidden" name="id" id="product_id_in_delete_modal" value="">
+              <p id="admin_trasanction_delete_confirm_message"></p>
+              <input type="hidden" name="id" id="admin_trasanction_delete_id" value="">
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -143,5 +143,5 @@
         </div>
       </div>
     </div>
---}}
+
 @include('layouts.footer')

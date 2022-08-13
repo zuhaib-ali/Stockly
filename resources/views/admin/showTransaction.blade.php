@@ -53,8 +53,8 @@
                     <thead>
                         <tr>
                             <th>PRODUCT</th>
-                            <th>PRICE</th>
                             <th>QUANTITY</th>
+                            <th>PRICE</th>
                         </tr>
                     </thead>
                     <tbody>

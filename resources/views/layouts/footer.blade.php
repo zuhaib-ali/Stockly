@@ -13,6 +13,10 @@
     <script>
         // Get unseen transactions
         $(document).ready(function(){
+            // Page title
+            $('title').text("UPartner");
+
+            
             let unseen_investors_name = '';
             $.ajax({
                 url: "{{ route('getUnseenTransactions') }}",
@@ -466,6 +470,19 @@ $('.investors-select2').select2();
                 }
             });
         });
+
+        // Transaction delete (Admin MODULE)
+        $(document).on('click', '.admin_transaction_delete_trigger', function(){
+            $.ajax({
+                url: "{{ url('admin/transaction/get-transaction-by-id') }}"+"/"+$(this).attr('data'),
+                type: "GET",
+                success:function(data){
+                    $("#admin_trasanction_delete_id").val(data.id);
+                    $("#admin_trasanction_delete_confirm_message").text("Are you sure want to delete transaction.");
+                    $("#admin_delete_transaction_modal").modal("show");
+                }
+            });
+        });
     </script>
 
     
@@ -617,5 +634,6 @@ $('.investors-select2').select2();
             </script>
         @endforeach
     @endif
+
 </body>
 </html>

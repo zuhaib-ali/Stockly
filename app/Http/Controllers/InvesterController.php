@@ -113,6 +113,15 @@ class InvesterController extends Controller
     }
 
     public function update(Request $request){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'nominee_name' => 'required',
+            'nominee' => 'required',
+        ]);
 
         $investor = Invester::find($request->id);
         $investor->first_name = $request->first_name;
@@ -120,10 +129,8 @@ class InvesterController extends Controller
         $investor->username = $request->first_name." ".$request->last_name;
         $investor->email = $request->email;
         $investor->phone = $request->phone;
-        $investor->cnic = $request->cnic;
         $investor->address = $request->address;
         $investor->nominee_name = $request->nominee_name;
-        $investor->nominee_cnic = $request->nominee_cnic;
         $investor->nominee_relationship = $request->nominee;
         $investor->referral_code = $request->referral_code;
         if($investor->update()){

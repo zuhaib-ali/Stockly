@@ -50,7 +50,7 @@
                                             </div>                            
 
                                             <div class="form-group">
-                                                <input type="text" name='cnic' value="{{ $investor->cnic }}" placeholder='CNIC' class='form-control' >
+                                                <input type="text" value="{{ $investor->cnic }}" placeholder='CNIC' class='form-control' readonly>
                                             </div>
                                         </div>
 
@@ -71,7 +71,7 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <input type="text" name='nominee_cnic' value="{{ $investor->nominee_cnic }}" placeholder='Nominee CNIC' class='form-control' >
+                                                <input type="text" value="{{ $investor->nominee_cnic }}" placeholder='Nominee CNIC' class='form-control' readonly>
                                             </div>
                                         </div>
 
@@ -80,23 +80,23 @@
                                         <h5>Relationship with nominee:</h5>
                                         <div class="form-row d-flex flex-wrap justify-content-between">
                                             <div class="form-group">
-                                                Father <input type="radio" name="nominee" value="father" @if($investor->nominee_name == 'father') selected @endif>
+                                                Father <input type="radio" name="nominee" value="father" @if($investor->nominee_relationship == 'father') checked @endif>
                                             </div>                            
 
                                             <div class="form-group">
-                                                Mother <input type="radio" name="nominee" value="mother" @if($investor->nominee_name == 'mother') selected @endif>
+                                                Mother <input type="radio" name="nominee" value="mother" @if($investor->nominee_relationship == 'mother') checked @endif>
                                             </div>                            
 
                                             <div class="form-group">
-                                                Brother <input type="radio" name="nominee" value="brother" @if($investor->nominee_name == 'brother') selected @endif>
+                                                Brother <input type="radio" name="nominee" value="brother" @if($investor->nominee_relationship == 'brother') checked @endif>
                                             </div>                            
 
                                             <div class="form-group">
-                                                Uncle <input type="radio" name="nominee" value="uncle" @if($investor->nominee_name == 'uncle') selected @endif>
+                                                Uncle <input type="radio" name="nominee" value="uncle" @if($investor->nominee_relationship == 'uncle') checked @endif>
                                             </div>                
                                             
                                             <div class="form-group">
-                                                Other <input type="radio" name="nominee" value="other" @if($investor->nominee_name == 'other') selected @endif>
+                                                Other <input type="radio" name="nominee" value="other" @if($investor->nominee_relationship == 'other') checked @endif>
                                             </div>                
                                         </div>
                                     </fieldset>

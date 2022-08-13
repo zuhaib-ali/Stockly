@@ -34,13 +34,5 @@ class CredientialController extends Controller
             $request->session()->put("user", $user);
             return redirect()->route("accountant");
         }
-        // elseif($request->role == 'invester'){
-        //     $user = User::where("email", $request->email)->first();
-        //     if(!$user || !Hash::check($request->password, $user->password)){
-        //         return back()->with("login_failed", "E-Mail or password does not exists!"); 
-        //     }
-        // }
-
-        
     }
 }
